@@ -1,0 +1,411 @@
+/* ===== GLOBAL NAV ===== */
+
+
+/*
+
+GLOBAL NAV TODO
+
+[✔] Home icon exists
+[✔] Site title exists
+[✔] Create Bot button exists
+[✔] Profile icon exists
+[✔] Shared global.css exists
+[✔] Mobile nav CSS exists
+
+[✔] Add nav to chatbox.html
+[✔] Decide if login page gets nav or stays separate
+[ ] Make Profile icon a link/button wrapper
+[ ] Create placeholder profile.html
+[ ] Make active page styling
+[ ] Fix button-inside-anchor pattern later
+[ ] Use <a class="nav-btn">Create Bot</a> instead of <a><button></button></a>
+[ ] Add alt/title attributes consistently
+[ ] Make nav width consistent with page content
+[ ] Make assets paths consistent across pages
+[ ] Confirm global.css path works from every HTML file
+[ ] Add logout/profile dropdown later
+*/
+
+
+body {
+    margin: 0;
+    background: #777;
+}
+
+form {
+    width: min(800px, 92vw);
+    margin: 40px auto;
+    padding: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(145deg, #26292f, #2f333a);
+
+    box-shadow:
+        inset 6px 6px 14px rgba(0,0,0,0.7),
+        inset -4px -4px 10px rgba(255,255,255,0.04);
+
+    border: 1px solid #1c1e22;
+}
+
+form h1, h2, h3, h4 {
+    text-align: center;
+    background: linear-gradient(90deg, #9b87f5, #6f5cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+}
+
+form p {
+    text-align: center;
+    background: linear-gradient(90deg, #9b87f5, #6f5cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#profile-menu {
+    position: absolute;
+
+    top: 80px; /* below nav */
+    right: calc((100vw - min(850px, 92vw)) / 2 + 10px);
+
+    width: 180px;
+
+    background: linear-gradient(145deg, #26292f, #2f333a);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.6),
+        inset 1px 1px 3px rgba(255,255,255,0.05);
+
+    border: 1px solid #1c1e22;
+
+    padding: 8px 0;
+
+    z-index: 999;
+}
+
+/* hidden state */
+.hidden {
+    display: none;
+}
+
+/* items */
+.profile-item {
+    padding: 10px 14px;
+
+    font-size: 14px;
+    color: #eee;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease;
+}
+
+.profile-item:hover {
+    background: rgba(155,135,245,0.15);
+}
+
+/* admin divider */
+.admin-section {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 6px;
+    padding-top: 6px;
+}
+
+#main-nav {
+    width: min(850px, 92vw);
+    margin: 20px auto 0;
+    padding: 12px 16px;
+
+    display: grid;
+    grid-template-columns: 48px 1fr auto 48px;
+    align-items: center;
+    gap: 14px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(145deg, #26292f, #2f333a);
+
+    box-shadow:
+        inset 5px 5px 12px rgba(0, 0, 0, 0.62),
+        inset -4px -4px 10px rgba(255, 255, 255, 0.04),
+        0 10px 26px rgba(0, 0, 0, 0.42);
+
+    border: 1px solid #1c1e22;
+
+    box-sizing: border-box;
+}
+
+/* remove ugly default link styling */
+#main-nav a {
+    text-decoration: none;
+}
+
+/* site title */
+#nav-header {
+    justify-self: center;
+
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+
+    color: #f2f2f2;
+
+    text-shadow:
+        0 0 12px rgba(155, 135, 245, 0.45),
+        0 2px 8px rgba(0, 0, 0, 0.5);
+
+    user-select: none;
+}
+
+/* icon buttons */
+.nav-icon {
+    width: 38px;
+    height: 38px;
+
+    padding: 7px;
+    box-sizing: border-box;
+
+    border-radius: 13px;
+
+    background: #1b1d21;
+
+    box-shadow:
+        inset 2px 2px 5px rgba(0, 0, 0, 0.65),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.05),
+        0 5px 14px rgba(0, 0, 0, 0.32);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+.nav-icon:hover {
+    transform: translateY(-2px);
+
+    background: #24272d;
+
+    box-shadow:
+        inset 2px 2px 5px rgba(0, 0, 0, 0.65),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.05),
+        0 0 0 2px rgba(155, 135, 245, 0.35),
+        0 8px 18px rgba(0, 0, 0, 0.42);
+}
+
+/* home icon */
+#home-btn {
+    justify-self: start;
+}
+
+/* profile icon */
+#profile-btn {
+    justify-self: end;
+}
+
+/* create bot button */
+.nav-btn {
+    padding: 11px 16px;
+
+    border-radius: 13px;
+    border: none;
+
+    background: linear-gradient(145deg, #9b87f5, #6f5cff);
+    color: white;
+
+    font-weight: 800;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.42),
+        inset 1px 1px 3px rgba(255, 255, 255, 0.18),
+        inset -2px -2px 5px rgba(0, 0, 0, 0.22);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.5),
+        0 0 0 2px rgba(155, 135, 245, 0.28),
+        inset 1px 1px 3px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 5px rgba(0, 0, 0, 0.22);
+}
+
+.nav-btn:active,
+.nav-icon:active {
+    transform: translateY(0);
+}
+
+/* ===== MOBILE NAV ===== */
+
+@media (max-width: 600px) {
+    #main-nav {
+        width: min(850px, 94vw);
+        grid-template-columns: 42px 1fr 42px;
+        grid-template-areas:
+            "home title profile"
+            "create create create";
+
+        gap: 10px;
+        padding: 12px;
+    }
+
+    #main-nav a:first-child {
+        grid-area: home;
+    }
+
+    #nav-header {
+        grid-area: title;
+        font-size: 20px;
+    }
+
+    #main-nav a[href="createbot.html"] {
+        grid-area: create;
+        width: 100%;
+    }
+
+    #create-btn {
+        width: 100%;
+    }
+
+    #profile-btn {
+        grid-area: profile;
+    }
+
+    .nav-icon {
+        width: 36px;
+        height: 36px;
+    }
+}
+/* ===== REUSABLE CHARACTER CARD ===== */
+
+.charCard {
+    width: 220px;
+
+    border-radius: 14px;
+    overflow: hidden;
+
+    background: linear-gradient(160deg, #2d1452, #1b1f3a);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.6),
+        inset 1px 1px 3px rgba(255,255,255,0.06);
+
+    display: flex;
+    flex-direction: column;
+
+    color: #f2f2f2;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+.charCard:hover {
+    transform: translateY(-4px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 14px 36px rgba(0,0,0,0.7),
+        0 0 0 2px rgba(155,135,245,0.25),
+        inset 1px 1px 3px rgba(255,255,255,0.07);
+}
+
+.charCard-name {
+    padding: 8px 10px;
+
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.charCard-img {
+    width: 100%;
+    height: 180px;
+
+    object-fit: cover;
+
+    background: #111;
+}
+
+.charCard-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    max-height: 32px;
+    overflow: hidden;
+
+    padding: 6px 10px 2px;
+
+    font-size: 12px;
+    color: #ccc;
+}
+
+.charCard-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    height: calc(1.4em * 3);
+    line-height: 1.4em;
+
+    overflow: hidden;
+
+    padding: 6px 10px;
+
+    font-size: 12px;
+    color: #ccc;
+}
+
+.charCard-tokens {
+    padding: 6px 10px 8px;
+
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* reusable tag chip inside character cards */
+.charCard-tag {
+    display: inline-block;
+
+    padding: 3px 6px;
+
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.35);
+
+    color: white;
+    font-size: 11px;
+    line-height: 1;
+
+    white-space: nowrap;
+}

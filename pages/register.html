@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/global.css">
+    <link rel="stylesheet" href="stylesheets/register.css">
+    <script src="javascript/global.js" defer></script>
+    <title>Register</title>
+</head>
+<body>
+
+    <nav id="main-nav">
+
+        <a href="home.html">
+            <img src="stylesheets/assets/home.svg" class="nav-icon" id="home-btn" alt="Home">
+        </a>
+        <header id="nav-header">Arcane AI</header>
+        <a href="createbot.html">
+            <button id="create-btn" class="nav-btn">Create Bot</button>
+        </a>
+        <img src="stylesheets/assets/blankpfp.svg" class="nav-icon" id="profile-btn" alt="Profile">
+    </nav>
+    <div id="profile-menu" class="hidden">
+        <div class="profile-item">Profile</div>
+        <div class="profile-item">Bots</div>
+        <div class="profile-item">Notifications</div>
+        <div class="profile-item" id="auth-item" href="/index.html">Login / Sign Up</div>
+
+        <div class="admin-section hidden" id="admin-section">
+            <div class="profile-item">Applications</div>
+            <div class="profile-item">System Terminal</div>
+        </div>
+    </div>
+    <div id="form-wrapper">
+        <form id="register-form">
+            <h1>--REGISTER--</h1>
+
+            <h2>Beta Tester Application and Important Information</h2>
+
+            <p>
+                Hello! Welcome to Arcane AI — we’re really glad you’re interested in signing up. <br><br>
+
+                You don’t need an account to chat with bots — you can jump in right away. However, without an account, some features will be limited. Chat names will default to <strong>Guest</strong>, pronouns will be set to <strong>They/Them</strong>, and features like creating bots, saving personas, and customizing your experience will be unavailable. <br><br>
+
+                Right now, we’re still in early development and running on a small backend, so we’re keeping account access limited while we build things out. <br><br>
+
+                During this phase, we’re inviting a small group of creators who have experience making bots and can help shape the platform and its community. Our goal is to make sure that when we open to everyone, new users are welcomed by high-quality bots and a strong foundation. <br><br>
+
+                If you’d like to be considered, please submit your email, desired username, password, and a short description of your experience creating bots. Feel free to include links to any bots you’ve made in the past. <br><br>
+
+                We’ll be reviewing applications manually and will reach out via email if you’re selected, so please use an email you check regularly. <br><br>
+
+                We’re excited to see what you create, and we hope to welcome you to Arcane AI soon.
+            </p>
+
+            <h3>Useful information before applying</h3>
+
+            <p>
+                - We have strict rules regarding harmful or illegal content, including but not limited to pedophilia. If you’d like a full overview of what is and isn’t allowed, please review our 
+                <a href="terms.html">Terms of Service</a> and 
+                <a href="communityguidelines.html">Community Guidelines</a>. <br><br>  
+
+                - If you’d like to learn more about Arcane AI and our goals, feel free to visit our 
+                <a href="about.html">About Us</a> page.
+            </p>
+
+            <button type="submit" id="submit-btn">Continue to Application</button>
+        </form>
+    </div>
+</body>
+
+<script>
+
+    submit = document.getElementById("submit-btn");
+
+    submit.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = "application.html";
+    });
+
+</script>
+
+</html>

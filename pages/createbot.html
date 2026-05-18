@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/global.css">
+    <link rel="stylesheet" href="stylesheets/createbot.css">
+    <script src="javascript/tags.js" defer></script>
+    <script src="javascript/createbot.js" defer></script>
+    <script src="javascript/global.js" defer></script>"
+    <title>Create Bot</title>
+</head>
+
+<body>
+    <nav id="main-nav">
+
+        <a href="home.html">
+            <img src="stylesheets/assets/home.svg" class="nav-icon" id="home-btn" alt="Home">
+        </a>
+        <header id="nav-header">Arcane AI</header>
+        <a href="createbot.html">
+            <button id="create-btn" class="nav-btn">Create Bot</button>
+        </a>
+        <img src="stylesheets/assets/blankpfp.svg" class="nav-icon" id="profile-btn" alt="Profile">
+    </nav>
+    <div id="profile-menu" class="hidden">
+        <div class="profile-item">Profile</div>
+        <div class="profile-item">Bots</div>
+        <div class="profile-item">Notifications</div>
+        <div class="profile-item" id="auth-item" ><a href="\index.html">Login / Sign Up</a></div>
+
+        <div class="admin-section hidden" id="admin-section">
+            <div class="profile-item">Applications</div>
+            <div class="profile-item">System Terminal</div>
+        </div>
+    </div>
+<form id="create-bot-form">
+
+    <h1>Create your own bot</h1>
+    <p>All bots must be approved by admins to prevent TOS issues.</p>
+    <p>Anything with a * is required.</p>
+
+    <!-- ===== IMAGE + PREVIEW ===== -->
+    <div class="top-section panel">
+
+        <div class="upload-box">
+            <h4>Image *</h4>
+
+            <label for="pfpupload" class="dropzone">
+                Drag & drop an image here<br>
+                <span>or click to upload</span>
+            </label>
+
+            <input type="file" id="pfpupload" accept="image/*" hidden>
+
+            <img id="preview" src="">
+        </div>
+
+        <div id="preview-card">
+            <div class="card-name-bar" id="preview_name"><strong>Character Name</strong></div>
+            <img class="card-pfp" id="card-pfp" src="stylesheets/assets/blankpfp.jpg">
+            <div class="card-tags" id="preview_tags">tags go here</div>
+            <div class="card-desc" id="preview_bio">short description goes here</div>
+            <div class="card-tokens" id="tokenCard">0 tokens</div>
+        </div>
+
+    </div>
+
+    <!-- ===== INPUTS ===== -->
+    <div id="input_fields" class="panel">
+
+        <h2>Character Name *</h2>
+        <input type="text" class="input_text" id="character_name" autocomplete="off" placeholder="Character Name..." maxlength="30" required>
+        <ul>
+            <li>The name your character will have on the character card.</li>
+        </ul>
+
+        <h2>Character Chat Name</h2>
+        <input type="text" class="input_text" id="chat_name" autocomplete="off" placeholder="Chat Name..." maxlength="10">
+        <ul>
+            <li>Optional nickname for your character to have in chat.</li>
+        </ul>
+
+        <h2>Tags</h2>
+        <div id="tags_box">
+            <input type="text" class="input_text" id="tags_input" autocomplete="off" placeholder="Tags...">
+            <div id="suggested_tags"></div>
+        </div>
+
+        <ul>
+            <li>Tags that help in search your character.</li>
+            <li><div id="tag_list">Tags:</div></li>
+        </ul>
+
+        <div id="bio_box">
+            <h2>Bio *</h2>
+            <textarea id="bio" autocomplete="off" maxlength="10000" required></textarea>
+            <ul>
+                <li>This will be used for others to see a basic overview of your character.</li>
+            </ul>
+        </div>
+
+        <h2>Personality/Description *</h2>
+        <textarea autocomplete="off" class="input_text" id="personality" maxlength="100000" required></textarea>
+        <ul>
+            <li>This will define your character's unique traits and behavior, along with physical description.</li>
+            <li>It is recommended to have at least 2000 tokens.</li>
+            <li class="token_count" id="personality_tokens">0 tokens</li>
+        </ul>
+
+        <h2>Scenario *</h2>
+        <textarea autocomplete="off" class="input_text" id="scenario" maxlength="10000" required></textarea>
+        <ul>
+            <li>It is recommended to have at least 750 tokens.</li>
+            <li class="token_count" id="scenario_tokens">0 tokens</li>
+        </ul>
+
+        <div id="first_message">
+            <h2>First Message *</h2>
+            <textarea autocomplete="off" class="input_field" id="first_message_input" maxlength="100000" required></textarea>
+            <ul>
+                <li>It is heavily recommended to have a long first message.</li>
+                <li>Make sure to be detailed.</li>
+                <li class="token_count" id="first_message_tokens">0 tokens</li>
+            </ul>
+        </div>
+
+        <div id="example_dialogue">
+            <h2>Example Dialogue *</h2>
+            <textarea autocomplete="off" class="input_field" id="example_dialogue_input" maxlength="100000" required></textarea>
+            <ul>
+                <li>This is what will teach your bot how to speak.</li>
+                <li>Make sure to be very detailed.</li>
+                <li>A guide on how to do this part will be added in a later update.</li>
+                <li class="token_count" id="example_dialogue_tokens">0 tokens</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div class="settings-container panel">
+
+        <div id="settings-header">Settings ▼</div>
+
+        <div id="settings-content">
+
+            <h1>Settings</h1>
+
+            <label class="toggle">
+                <input type="checkbox" id="useCustomSettings">
+                <span class="slider"></span>
+            </label>
+
+            <h2>Model</h2>
+            <p>Determines how your AI behaves, including quality, cost, and response style.</p>
+
+            <label for="models">Choose a Model:</label>
+            <select id="models" name="model">
+                <option value="gpt-4.1-nano">Basic - GPT-4.1 Nano</option>
+                <option value="gpt-4o-mini">Cheap - GPT-4o Mini</option>
+                <option value="gpt-4.1-mini">Recommended - GPT-4.1 Mini</option>
+                <option value="gpt-4.1">High Quality - GPT-4.1</option>
+            </select>
+
+            <h2>Temperature</h2>
+            <p>Controls randomness. Low = stable, High = chaotic.</p>
+            <input type="range" id="temperature" min="0" max="2" step="0.01" value="0.85">
+            <input type="number" id="temperatureNum" min="0" max="2" step="0.01" value="0.85">
+
+            <h2>Top P</h2>
+            <p>Controls diversity of responses.</p>
+            <input type="range" id="top_p" min="0" max="1" step="0.01" value="0.9">
+            <input type="number" id="top_pNum" min="0" max="1" step="0.01" value="0.9">
+
+            <h2>Top K</h2>
+            <p>Limits how many word options AI considers.</p>
+            <input type="range" id="top_k" min="0" max="200" step="1" value="60">
+            <input type="number" id="top_kNum" min="0" max="200" step="1" value="60">
+
+            <h2>Repetition Penalty</h2>
+            <p>Prevents repeated phrases.</p>
+            <input type="range" id="repetition_penalty" min="1" max="2" step="0.01" value="1.15">
+            <input type="number" id="repetition_penaltyNum" min="1" max="2" step="0.01" value="1.15">
+
+            <h2>Frequency Penalty</h2>
+            <p>Reduces repeated words.</p>
+            <input type="range" id="frequency_penalty" min="-2" max="2" step="0.01" value="0.2">
+            <input type="number" id="frequency_penaltyNum" min="-2" max="2" step="0.01" value="0.2">
+
+            <h2>Presence Penalty</h2>
+            <p>Encourages new topics.</p>
+            <input type="range" id="presence_penalty" min="-2" max="2" step="0.01" value="0.1">
+            <input type="number" id="presence_penaltyNum" min="-2" max="2" step="0.01" value="0.1">
+
+            <h2>Context Messages</h2>
+            <p>How much memory the AI keeps.</p>
+            <input type="range" id="context_messages" min="2" max="100" step="1" value="30">
+            <input type="number" id="context_messagesNum" min="2" max="100" step="1" value="30">
+
+        </div>
+    </div>
+
+    <button id="submit_bot" type="submit">Submit Bot</button>
+
+</form>
+</body>
+</html>
