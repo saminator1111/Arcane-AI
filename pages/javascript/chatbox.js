@@ -46,6 +46,8 @@ JS:
 */
 
 
+const BASE_URL = "https://tigress-ditzy-fiftieth.ngrok-free.dev"
+
 class chatbox {
     constructor() {
 
@@ -68,7 +70,7 @@ class chatbox {
     }
 
     sendMessage() {
-        fetch("http://localhost:3000/chat", {
+        fetch(`${BASE_URL}/chat`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -1,3 +1,5 @@
+const BASE_URL = "https://tigress-ditzy-fiftieth.ngrok-free.dev"
+
 class Login {
     constructor() {
         this.username = document.getElementById("username")
@@ -35,7 +37,7 @@ class Login {
         this.setLoading(true)
 
         try {
-            const res = await fetch("http://localhost:3000/login", {
+            const res = await fetch(`${BASE_URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

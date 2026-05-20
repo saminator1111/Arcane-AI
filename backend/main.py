@@ -14,6 +14,13 @@ from pydantic import BaseModel
 ### Run server:
 ### uvicorn main:app --reload --port 3000
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all (dev only)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ===== PATHS =====
 

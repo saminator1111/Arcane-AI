@@ -134,6 +134,8 @@ CSS cleanup:
 [ ] Confirm nav spacing with createbot form
 */
 
+const BASE_URL = "https://tigress-ditzy-fiftieth.ngrok-free.dev"
+
 
 class main {
     constructor() {
@@ -616,7 +618,7 @@ class main {
         }
         
 
-        fetch("http://localhost:3000/submit", {
+        fetch(`${BASE_URL}/submit`, {
             method: "POST",
             body: form
         })

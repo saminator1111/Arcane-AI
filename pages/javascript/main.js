@@ -1,3 +1,5 @@
+const BASE_URL = "https://tigress-ditzy-fiftieth.ngrok-free.dev"
+
 class main {
     constructor() {
         // ===== STATE =====
@@ -26,7 +28,7 @@ class main {
     }
 
     loadBots() {
-        fetch("http://localhost:3000/bots")
+        fetch(`${BASE_URL}/bots`)
             .then(res => res.json())
             .then(data => {
                 console.log("bots from backend:", data)

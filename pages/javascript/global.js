@@ -1,5 +1,6 @@
 const profileBtn = document.getElementById("profile-btn")
 const profileMenu = document.getElementById("profile-menu")
+const BASE_URL = "https://tigress-ditzy-fiftieth.ngrok-free.dev"
 
 const adminProfiles = [1]
 
@@ -20,7 +21,7 @@ profileMenu.addEventListener("click", (e) => {
 })
 
 function initialize() {
-    fetch("http://localhost:3000/user")
+    fetch(`${BASE_URL}/user`)
         .then(res => res.json())
         .then(data => {
             console.log("user data loaded.")
@@ -33,7 +34,7 @@ function initialize() {
             }
         })
 
-        fetch("http://localhost:3000/bots")
+        fetch(`${BASE_URL}/bots`)
             .then(res => res.json())
             .then(data => {
                 console.log("bots from backend:", data)
