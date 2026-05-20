@@ -14,6 +14,8 @@ from pydantic import BaseModel
 ### Run server:
 ### uvicorn main:app --reload --port 3000
 
+app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # allow all (dev only)
@@ -200,19 +202,6 @@ class ChatRequest(BaseModel):
 
 class SearchRequest(BaseModel):
     search: str
-
-
-# ===== APP SETUP =====
-
-app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
 
 ensure_bots_table()
 
