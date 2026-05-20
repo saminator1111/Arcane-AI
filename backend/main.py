@@ -252,35 +252,32 @@ def get_bots():
     conn = get_connection(DB_BOTS)
     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT
-            id,
-            account_id,
-            name,
-            chatName,
-            description,
-            personality,
-            scenario,
-            firstMessage,
-            exampleDialogue,
-            model,
-            temp,
-            tags,
-            topP,
-            topK,
-            repetitionPenalty,
-            frequencyPenalty,
-            presencePenalty,
-            contextMessages,
-            image
-        FROM bots
-        ORDER BY id DESC
-    """)
+    conn_accounts = get_connection(DB_ACCOUNTS)
+    cursor_accounts = conn_accounts.cursor()
+
+    cursor.execute("SELECT * FROM bots")
+
 
     rows = cursor.fetchall()
     conn.close()
 
-    bots = [bot_row_to_dict(row) for row in rows]
+    bots = []
+
+    for row in rows:
+        bot = bot_row_to_dict(row)
+
+        cursor_accounts.execute(
+            "SELECT username FROM accounts WHERE account_id = ?",
+            (bot["account_id"],)
+        )
+
+        user = cursor_accounts.fetchone()
+
+        bot["username"] = user["username"] if user else "Unknown"
+
+        bots.append(bot)
+
+    conn_accounts.close()
 
     return {"bots": bots}
 
