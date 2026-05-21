@@ -1,40 +1,34 @@
-const BASE_URL = "https://tigress-ditzy-fiftieth.ngrok-free.dev"
+const BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
 
 class main {
     constructor() {
-        // ===== STATE =====
         this.bots = []
 
-        // ===== ELEMENTS =====
         this.search = document.getElementById("searchBox")
         this.botwrapper = document.getElementById("bot-wrapper")
 
-        // ===== INITIAL SETUP =====
         this.loadBots()
 
-        // ===== EVENT LISTENERS =====
         this.search.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 if (this.search.value) {
                     e.preventDefault()
                     this.searchBots()
                 } else {
-                    if (this.search.value === "") {
-                        this.renderBots(this.bots)
-                    }
+                    this.renderBots(this.bots)
                 }
             }
         })
     }
 
     loadBots() {
+        console.log("FETCHING:", `${BASE_URL}/bots`)
+
         fetch(`${BASE_URL}/bots`)
             .then(res => res.json())
             .then(data => {
                 console.log("bots from backend:", data)
-
                 this.bots = data.bots
-
                 this.renderBots(this.bots)
             })
             .catch(err => {
@@ -46,67 +40,84 @@ class main {
         this.botwrapper.innerHTML = ""
 
         if (!bots || bots.length === 0) {
-            this.botList.textContent = "No bots found."
+            this.botwrapper.textContent = "No bots found."
             return
         }
 
-        // console.log("render these bots:", bots)
-
         bots.forEach(bot => {
-            const botCard = document.createElement("div")
+            const botLink = document.createElement("a")
+            botLink.href = `bot.html?id=${bot.id}`
+            botLink.classList.add("bot-link")
 
+            const botCard = document.createElement("div")
             botCard.classList.add("bot-card")
 
-            const cardNameBar = document.createElement("div")
+            botLink.appendChild(botCard)
 
-            cardNameBar.classList.add("card-name-bar")
+            const title_wrapper = document.createElement("div")
+            title_wrapper.classList.add("title-wrapper")
 
             const title = document.createElement("strong")
-
             title.textContent = bot.name
+            title_wrapper.appendChild(title)
 
-            cardNameBar.appendChild(title)
+            botCard.appendChild(title_wrapper)
 
-            botCard.appendChild(cardNameBar)
+            if (!bot.image) {
+                const image = document.createElement("img")
+                image.classList.add("bot-image")
+                image.src = "/pages/stylesheets/assets/blankpfp.jpg"
+                botCard.appendChild(image)
+            } else {
+                const image = document.createElement("img")
+                image.classList.add("bot-image")
+                image.src = bot.image
+                botCard.appendChild(image)
+            }
 
-            const image = document.createElement("img")
+            const username_wrapper = document.createElement("div")
+            username_wrapper.classList.add("username-wrapper")
 
-            image.classList.add("bot-image")
+            const username = document.createElement("a")
 
-            image.src = bot.image
+            username.href = `profile.html?id=${bot.account_id}`
 
-            botCard.appendChild(image)
+            username.textContent = `@${bot.username}`
+            username_wrapper.appendChild(username)
+
+            botCard.appendChild(username_wrapper)
+
 
             const bot_tags = document.createElement("div")
-
             bot_tags.classList.add("card-tags")
 
             const tags = bot.tags || []
-
             tags.forEach(tag => {
                 const tag_item = document.createElement("span")
-
                 tag_item.textContent = tag
-
                 tag_item.classList.add("tag")
-
                 bot_tags.appendChild(tag_item)
-
-                botCard.appendChild(bot_tags)
             })
 
+            botCard.appendChild(bot_tags)
 
-            this.botwrapper.appendChild(botCard)
-        });
+            const desc_wrapper = document.createElement("div")
+            desc_wrapper.classList.add("desc-wrapper")
+
+            const desc = document.createElement("p")
+            desc.textContent = bot.description || "No description"
+            desc_wrapper.appendChild(desc)
+
+            botCard.appendChild(desc_wrapper)
+
+            this.botwrapper.appendChild(botLink)
+        })
     }
 
     searchBots() {
         const searchValue = this.search.value.trim().toLowerCase()
-
         console.log("searching:", searchValue)
-
-        // We will filter bots here after rendering works
     }
 }
 
-const app = new main()
+const app = new main()  

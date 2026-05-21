@@ -1,6 +1,6 @@
 const profileBtn = document.getElementById("profile-btn")
 const profileMenu = document.getElementById("profile-menu")
-const BASE_URL = "https://tigress-ditzy-fiftieth.ngrok-free.dev"
+const BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
 
 const adminProfiles = [1]
 
