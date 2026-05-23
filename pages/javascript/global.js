@@ -1,128 +1,117 @@
-const profileBtn = document.getElementById("profile-btn")
-const profileMenu = document.getElementById("profile-menu")
-const BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
+const GLOBAL_BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
 
-const adminProfiles = [1]
+const adminProfiles = ["571bd9ed-ec70-4a0e-8838-0f5657c42e9c"]
 
-// toggle menu
-profileBtn.addEventListener("click", (e) => {
-    e.stopPropagation() // prevents instant close
-    profileMenu.classList.toggle("hidden")
+document.addEventListener("DOMContentLoaded", () => {
+    loadNav()
 })
 
-// click outside closes it
-document.addEventListener("click", () => {
-    profileMenu.classList.add("hidden")
-})
-
-// prevent clicking inside from closing
-profileMenu.addEventListener("click", (e) => {
-    e.stopPropagation()
-})
-
-function initialize() {
-    fetch(`${BASE_URL}/user`)
-        .then(res => res.json())
-        .then(data => {
-            console.log("user data loaded.")
-
-            user = data.user
-
-            if (data.user == null || !data.user.username) {
-                console.log("no user logged in.")
-                return
-            }
+function loadNav() {
+    fetch("/pages/components/nav.html")
+        .then(res => {
+            console.log("NAV STATUS:", res.status)
+            return res.text()
         })
-
-        fetch(`${BASE_URL}/bots`)
-            .then(res => res.json())
-            .then(data => {
-                console.log("bots from backend:", data)
-                this.bots = data.bots
-                // we will render bots here after we get rendering working
+        .then(html => {
+            document.getElementById("navbar-container").innerHTML = html
+            setupNav()
+        })
+        .catch(err => {
+            console.error("NAV LOAD FAILED:", err)
         })
 }
 
-function buildNav() {
+function setupNav() {
 
-    const user = Session.getUser()
-    profileMenu.innerHTML = ""
+    const profileBtn = document.getElementById("profile-btn")
+    const profileMenu = document.getElementById("profile-menu")
 
-    if (!user) {
-        const el = document.createElement("div")
-
-        el.classList.add("profile-item")
-
-        el.textContent = "login / Sign Up"
-
-        profileMenu.appendChild(el)
-
+    if (!profileBtn || !profileMenu) {
+        console.error("Nav elements not found")
         return
     }
 
+    // ✅ FIXED toggle
+    profileBtn.addEventListener("click", (e) => {
+        e.stopPropagation()
+        profileMenu.classList.toggle("hidden")
+    })
 
-    const el = document.createElement("div")
+    // click outside closes it
+    document.addEventListener("click", () => {
+        profileMenu.classList.add("hidden")
+    })
 
-    el.classList.add("profile-item")
+    // prevent closing when clicking inside
+    profileMenu.addEventListener("click", (e) => {
+        e.stopPropagation()
+    })
 
-    el.textContent = "Profile"
+    buildNav(profileMenu)
+}
 
-    profileMenu.appendChild(el)
+function buildNav(profileMenu) {
 
-    const el2 = document.createElement("div")
+    const user = Session.getUser()
+    console.log(user)
+    profileMenu.innerHTML = ""
 
-    el2.classList.add("profile-item")
+    // 🔴 NOT LOGGED IN
+    if (!user) {
+        const el = document.createElement("a")
+        el.classList.add("profile-item")
+        el.textContent = "Login / Sign Up"
+        el.href = "/index.html"
 
-    el2.textContent = "Notifications"
-
-    profileMenu.appendChild(el2)
-
-    const el3 = document.createElement("div")
-
-    el3.classList.add("profile-item")
-
-    el3.textContent = "Settings"
-
-    profileMenu.appendChild(el3)
-
-    const el4 = document.createElement("div")
-
-    el4.classList.add("profile-item")
-
-    el4.textContent = "Personas"
-
-    profileMenu.appendChild(el4)
-
-    if (adminProfiles.includes(user.id)) {
-
-        const el5 = document.createElement("div")
-
-        el5.classList.add("profile-item")
-
-        el5.textContent = "Admin Panel"
-
-        profileMenu.appendChild(el5)
-
+        profileMenu.appendChild(el)
+        return
     }
 
-    return
+    // 🟢 LOGGED IN
+
+    const profile = document.createElement("a")
+    profile.classList.add("profile-item")
+    profile.textContent = "Profile"
+    profile.href = `/pages/profile.html?id=${user.id}`
+    profileMenu.appendChild(profile)
+
+    const notif = document.createElement("a")
+    notif.classList.add("profile-item")
+    notif.textContent = "Notifications"
+    profileMenu.appendChild(notif)
+
+    const settings = document.createElement("a")
+    settings.classList.add("profile-item")
+    settings.textContent = "Settings"
+    profileMenu.appendChild(settings)
+
+    const personas = document.createElement("a")
+    personas.classList.add("profile-item")
+    personas.textContent = "Personas"
+    profileMenu.appendChild(personas)
+
+    if (adminProfiles.includes(user.id)) {
+        const admin = document.createElement("a")
+        admin.classList.add("profile-item")
+        admin.textContent = "Admin Panel"
+        profileMenu.appendChild(admin)
+    }
+
+    const logout = document.createElement("a")
+    logout.classList.add("profile-item")
+    logout.textContent = "Logout"
+    profileMenu.appendChild(logout)
 }
 
 class Session {
 
     static getUser() {
-
         const raw = localStorage.getItem("user")
-
         if (!raw) return null
-
         return JSON.parse(raw)
-
     }
 
     static isLoggedIn() {
-
         return this.getUser() !== null
     }
-
 }

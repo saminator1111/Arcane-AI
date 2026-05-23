@@ -91,13 +91,21 @@ class main {
             const bot_tags = document.createElement("div")
             bot_tags.classList.add("card-tags")
 
-            const tags = bot.tags || []
-            tags.forEach(tag => {
+            const tags = bot.tags
+
+            if (!tags || tags.length === 0) {
                 const tag_item = document.createElement("span")
-                tag_item.textContent = tag
+                tag_item.textContent = "notags"
                 tag_item.classList.add("tag")
                 bot_tags.appendChild(tag_item)
-            })
+            } else {
+                tags.forEach(tag => {
+                    const tag_item = document.createElement("span")
+                    tag_item.textContent = tag
+                    tag_item.classList.add("tag")
+                    bot_tags.appendChild(tag_item)
+                })
+            }
 
             botCard.appendChild(bot_tags)
 

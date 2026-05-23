@@ -55,8 +55,12 @@ class Login {
             }
 
             if (data.ok && data.account_id) {
-                localStorage.setItem("account_id", String(data.account_id))
-                localStorage.setItem("username", data.username || username)
+                const user = {
+                    id: data.account_id,
+                    username: data.username,
+                    email: data.email
+                }
+                localStorage.setItem("user", JSON.stringify(user))
 
                 window.location.href = "pages/home.html"
                 return
