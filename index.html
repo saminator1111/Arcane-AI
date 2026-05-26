@@ -2,35 +2,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="pages/javascript/login.js" defer></script>
+    <script src="pages/javascript/global.js" defer></script>
     <link rel="stylesheet" href="pages/stylesheets/login.css">
     <link rel="stylesheet" href="pages/stylesheets/global.css">
     <title>Login</title>
 </head>
 <body>
 
-    <nav id="main-nav">
-
-        <a href="pages/home.html">
-            <img src="pages/stylesheets/assets/home.svg" class="nav-icon" id="home-btn" alt="Home">
-        </a>
-        <header id="nav-header">Arcane AI</header>
-        <a href="pages/createbot.html">
-            <button id="create-btn" class="nav-btn">Create Bot</button>
-        </a>
-        <img src="pages/stylesheets/assets/blankpfp.svg" class="nav-icon" id="profile-btn" alt="Profile">
-    </nav>
-    <div id="profile-menu" class="hidden">
-        <div class="profile-item">Profile</div>
-        <div class="profile-item">Bots</div>
-        <div class="profile-item">Notifications</div>
-        <div class="profile-item" id="auth-item" href="/index.html">Login / Sign Up</div>
-
-        <div class="admin-section hidden" id="admin-section">
-            <div class="profile-item">Applications</div>
-            <div class="profile-item">System Terminal</div>
-        </div>
-    </div>
+    <div id="navbar-container"></div>
 
     <div class="login-container">
         <div id="header-wrapper">

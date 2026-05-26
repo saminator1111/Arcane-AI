@@ -3,12 +3,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/pages/javascript/global.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="/pages/stylesheets/global.css">
+    <link rel="stylesheet" href="/pages/stylesheets/profile.css">
     <title>Profile</title>
 </head>
 <body>
-    <div id="navbar-container">
+    <div id="navbar-container"></div>
 
+
+    <div id="profile-page-wrapper">
+        <main id="profile-page">
+            <aside id="profile-left">
+                <div id="profile-picture-container">
+                    <img id="profile-picture" src="/pages/stylesheets/assets/blankpfp.jpg" alt="Profile Picture">
+                </div>
+                <div id="profile-tag-container">
+                    <h2 id="profile-username">Username</h2>
+                    <span id="profile-badge">Badge</span>
+                </div>
+                <div id="profile-bio-container">
+                    <p id="profile-bio">This is the user's bio. It can be a short description about the user.</p>
+                </div>
+                <div id="profile-join-date">
+                    <span id="join-date-label">Joined </span>
+                    <span id="join-date-value">January 1, 2024</span>
+                </div>
+                <hr>
+                <div id="profile-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Bots Created</span>
+                        <span class="stat-value">0</span>
+                    </div>
+
+                    <div class="stat-row">
+                        <span class="stat-label">Followers</span>
+                        <span class="stat-value">0</span>
+                    </div>
+
+                    <div class="stat-row">
+                        <span class="stat-label">Following</span>
+                        <span class="stat-value">0</span>
+                    </div>
+
+                    <div class="stat-row">
+                        <span class="stat-label">Total Chats</span>
+                        <span class="stat-value">0</span>
+                    </div>
+                </div>
+                <hr>
+                <div id="Edit-profile" class="">
+                    <button id="edit-profile-button">Edit Profile</button>
+                </div>
+            </aside>
+
+
+            <section id="profile-center">
+                <div id="center-panel">
+                    <div id="profile-tabs-wrapper">
+                        <button class="tab" id="bots">Bots</button>
+                        <button class="tab" id="favorites">Favorites</button>
+                        <button class="tab" id="activity">Activity</button>
+                    </div>
+
+                    <div id="center-wrapper">
+                        <div id="top-section">
+                            <div id="top-section-left" class="top-section-content">
+                                <h3 id="top-section-title">My Bots</h3>
+                                <span id="number" class="">0</span>
+                            </div>
+                            <div id="top-section-right" class="top-section-content">
+                                <div class="dropdown">
+                                    <button id="dropdown-button">Sort By</button>
+                                    <div id="dropdown-content" class="dropdown-content">
+                                        <button class="dropdown-item">Most Recent</button>
+                                        <button class="dropdown-item">Oldest</button>
+                                        <button class="dropdown-item">Most Popular</button>
+                                        <button class="dropdown-item">Least Popular</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="bot-grid"></div>
+
+                        <button id="load-more-button">Load More</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <aside id="profile-right"></aside>
+        </main>
     </div>
 </body>
 </html>

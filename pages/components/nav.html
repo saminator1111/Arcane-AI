@@ -1,14 +1,27 @@
 <nav id="main-nav">
-
-    <a href="/pages/home.html">
-        <img src="/pages/stylesheets/assets/home.svg" class="nav-icon" id="home-btn" alt="Home">
-    </a>
-    <header id="nav-header">Arcane AI</header>
-    <a href="/pages/createbot.html">
-        <button id="create-btn" class="nav-btn">Create Bot</button>
-    </a>
-    <img src="/pages/stylesheets/assets/blankpfp.svg" class="nav-icon" id="profile-btn" alt="Profile">
-    <div id="profile-menu" class="hidden">
-
+    <div id="nav-left">
+        <a href="/pages/home.html" class="nav-icon" id="home-btn">
+            <i data-lucide="house"></i>
+        </a>
+        <a href="/pages/aboutUs.html" class="nav-logo-link-wrapper">
+            <img src="/pages/stylesheets/assets/logo.svg" id="nav-logo" alt="Arcane AI Logo">
+        </a>
+    </div>
+    <div id="nav-center">
+        <i data-lucide="search" class="search-icon"></i>
+        <input type="search" id="searchBox" name="q" placeholder="Search..." autocomplete="off">
+    </div>
+    <div id="nav-right">
+        <a href="/pages/createbot.html">
+            <button id="create-btn" class="nav-btn"><i data-lucide="plus"></i> Create Bot</button>
+        </a>
+        <div id="notifications-wrapper">
+            <i data-lucide="bell" class="nav-icon" id="notifications-btn"></i>
+            <div id="notifications-dropdown" class="hidden"></div>
+        </div>
+        <div id="profile-menu-wrapper">
+            <img src="/pages/stylesheets/assets/blankpfp.svg" class="nav-icon" id="profile-btn" alt="Profile">
+            <div id="profile-menu" class="hidden"></div>
+        </div>
     </div>
 </nav>

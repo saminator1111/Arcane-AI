@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="stylesheets/global.css">
     <link rel="stylesheet" href="stylesheets/register.css">
     <script src="javascript/global.js" defer></script>
@@ -9,28 +10,8 @@
 </head>
 <body>
 
-    <nav id="main-nav">
+    <div id="navbar-container"></div>
 
-        <a href="home.html">
-            <img src="stylesheets/assets/home.svg" class="nav-icon" id="home-btn" alt="Home">
-        </a>
-        <header id="nav-header">Arcane AI</header>
-        <a href="createbot.html">
-            <button id="create-btn" class="nav-btn">Create Bot</button>
-        </a>
-        <img src="stylesheets/assets/blankpfp.svg" class="nav-icon" id="profile-btn" alt="Profile">
-    </nav>
-    <div id="profile-menu" class="hidden">
-        <div class="profile-item">Profile</div>
-        <div class="profile-item">Bots</div>
-        <div class="profile-item">Notifications</div>
-        <div class="profile-item" id="auth-item" href="/index.html">Login / Sign Up</div>
-
-        <div class="admin-section hidden" id="admin-section">
-            <div class="profile-item">Applications</div>
-            <div class="profile-item">System Terminal</div>
-        </div>
-    </div>
     <div id="form-wrapper">
         <form id="register-form">
             <h1>--REGISTER--</h1>

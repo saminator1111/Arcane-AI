@@ -1,0 +1,29 @@
+#profile-page {
+    display: grid;
+    grid-template-columns: 480px 1fr 480px;
+    gap: 20px;
+}
+#profile-right {
+    background: red;
+    min-height: 800px;
+}
+#profile-center {
+    background: blue;
+    min-height: 800px;
+}
+#profile-left {
+    background: grey;
+    min-height: 800px;
+}
+
+#profile-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
