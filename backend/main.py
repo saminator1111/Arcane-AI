@@ -67,6 +67,49 @@ def get_connection(db_path):
     conn.row_factory = sqlite3.Row
     return conn
 
+def ensure_accounts_table():
+    conn = get_connection(DB_ACCOUNTS)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS accounts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            account_id TEXT NOT NULL UNIQUE,
+            username TEXT NOT NULL UNIQUE,
+            email TEXT NOT NULL UNIQUE,
+            password_hash TEXT NOT NULL,
+            profilePhoto TEXT,
+            joinDate TEXT,
+            bio TEXT,
+            numofBots INTEGER DEFAULT 0,
+            numofFollowers INTEGER DEFAULT 0,
+            numofFollowing INTEGER DEFAULT 0,
+            totalChats INTEGER DEFAULT 0,
+            blockedUsers TEXT DEFAULT '[]'
+        )
+    """)
+
+    cursor.execute("PRAGMA table_info(accounts)")
+    columns = {column["name"] for column in cursor.fetchall()}
+
+    needed_columns = {
+        "profilePhoto": "TEXT",
+        "joinDate": "TEXT",
+        "bio": "TEXT",
+        "numofBots": "INTEGER DEFAULT 0",
+        "numofFollowers": "INTEGER DEFAULT 0",
+        "numofFollowing": "INTEGER DEFAULT 0",
+        "totalChats": "INTEGER DEFAULT 0",
+        "blockedUsers": "TEXT DEFAULT '[]'"
+    }
+
+    for column_name, column_type in needed_columns.items():
+        if column_name not in columns:
+            cursor.execute(f"ALTER TABLE accounts ADD COLUMN {column_name} {column_type}")
+
+    conn.commit()
+    conn.close()
+
 
 def ensure_bots_table():
     conn = get_connection(DB_BOTS)
@@ -165,6 +208,21 @@ def parse_tags_from_db(tags_value):
         return []
 
 
+def account_row_to_dict(row):
+    return {
+        "id": row["id"],
+        "account_id": row["account_id"],
+        "username": row["username"],
+        "profilePhoto": row["profilePhoto"],
+        "joinDate": row["joinDate"],
+        "bio": row["bio"],
+        "numofBots": row["numofBots"],
+        "numofFollowers": row["numofFollowers"],
+        "numofFollowing": row["numofFollowing"],
+        "totalChats": row["totalChats"],
+        "blockedUsers": row["blockedUsers"]
+    }
+
 def bot_row_to_dict(row):
     return {
         "id": row["id"],
@@ -204,6 +262,8 @@ class SearchRequest(BaseModel):
     search: str
 
 ensure_bots_table()
+
+ensure_accounts_table()
 
 
 # ===== ROUTES =====
@@ -277,6 +337,44 @@ def get_bots():
 
     return {"bots": bots}
 
+
+@app.get("/accounts/{account_id}")
+def get_account(account_id: str):
+    ensure_accounts_table()
+
+    conn = get_connection(DB_ACCOUNTS)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id,
+        account_id,
+        username, 
+        profilePhoto, 
+        joinDate, 
+        bio,
+        numofBots,
+        numofFollowers,
+        numofFollowing,
+        totalChats,
+        blockedUsers
+        FROM accounts
+                   
+        WHERE account_id = ?
+    """, (account_id,))
+
+    user = cursor.fetchone()
+    conn.close()
+
+    if not user:
+        return {
+            "ok": False,
+            "message": "Account not found"
+        }
+
+    return {
+        "ok": True,
+        "account": account_row_to_dict(user)
+    }
 
 @app.get("/bot/{bot_id}")
 def get_bot(bot_id: int):

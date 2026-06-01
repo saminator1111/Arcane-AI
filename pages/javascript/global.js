@@ -70,7 +70,7 @@ function buildNav(profileMenu) {
 
     const profile = document.createElement("a")
     profile.classList.add("profile-item")
-    profile.href = "/pages/profile.html"
+    profile.href = `/pages/profile.html?id=${user.id}`
     
     const profileIcon = document.createElement("i")
     profileIcon.setAttribute("data-lucide", "user")

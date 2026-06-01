@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/pages/javascript/global.js" defer></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/pages/javascript/profile.js" defer></script>
     <link rel="stylesheet" href="/pages/stylesheets/global.css">
     <link rel="stylesheet" href="/pages/stylesheets/profile.css">
     <title>Profile</title>
@@ -16,7 +17,9 @@
         <main id="profile-page">
             <aside id="profile-left">
                 <div id="profile-picture-container">
-                    <img id="profile-picture" src="/pages/stylesheets/assets/blankpfp.jpg" alt="Profile Picture">
+                    <a id="img-wrapper">
+                        <img id="profile-picture" src="/pages/stylesheets/assets/blankpfp.jpg" alt="Profile Picture">
+                    </a>
                 </div>
                 <div id="profile-tag-container">
                     <h2 id="profile-username">Username</h2>
@@ -52,8 +55,11 @@
                     </div>
                 </div>
                 <hr>
-                <div id="Edit-profile" class="">
-                    <button id="edit-profile-button">Edit Profile</button>
+                <div id="edit-profile" class="">
+                    <button id="edit-profile-button">
+                        <i data-lucide="pencil" id="edit-profile-icon"></i>
+                        Edit Profile
+                    </button>
                 </div>
             </aside>
 
@@ -92,7 +98,53 @@
             </section>
 
 
-            <aside id="profile-right"></aside>
+            <aside id="profile-right">
+                <div id="top-right-section">
+
+
+                    <div class="right-section-header-wrapper">
+                        <h3 id="right-section-title-top" class="right-section-headers">Notifications</h3>
+                        <i data-lucide="bell" id="notification-bell-icon"></i>
+                    </div>
+
+                    <hr class="right-section-divider">
+
+                    <div id="notifications-container">
+
+                    </div>
+
+                </div>
+
+                <div id="middle-right-section">
+
+                    <div class="right-section-header-wrapper">
+                        <h3 id="right-section-title-middle" class="right-section-headers">Status</h3>
+                        <i data-lucide="info" id="status-info-icon"></i>
+                    </div>
+
+                    <hr class="right-section-divider">
+
+                    <div id="status-container">
+
+                    </div>
+
+                </div>
+
+                <div id="bottom-right-section">
+                    
+                    <div class="right-section-header-wrapper">
+                        <h3 id="right-section-title-bottom" class="right-section-headers">Achievements</h3>
+                        <i data-lucide="trophy" id="achievements-trophy-icon"></i>
+                    </div>
+
+                    <hr class="right-section-divider">
+
+                    <div id="achievements-container">
+
+                    </div>
+
+                </div>
+            </aside>
         </main>
     </div>
 </body>
