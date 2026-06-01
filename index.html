@@ -3,27 +3,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="pages/javascript/login.js" defer></script>
+    <script src="pages/javascript/main.js" defer></script>
     <script src="pages/javascript/global.js" defer></script>
-    <link rel="stylesheet" href="pages/stylesheets/login.css">
+    <link rel="stylesheet" href="pages/stylesheets/home.css">
     <link rel="stylesheet" href="pages/stylesheets/global.css">
-    <title>Login</title>
+    <title>Home</title>
 </head>
 <body>
+    <div id="navbar-container">
 
-    <div id="navbar-container"></div>
+    </div>
+    <div>
+        <form role="search">
+            <input type="search" id="searchBox" name="q" placeholder="Search..." autocomplete="off">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div id="hero">
+        <h1>Arcane AI</h1>
+        <p>Your dream, our goal, where fiction meets reality</p>
+    </div>
+    <div id="nav-wrap">
+        <nav id="hot-tabs">
+            <button id="Recent">Recent</button>
+            <button id="Favorits">Favorits</button>
+        </nav>
+    </div>
+    <div id="bot-wrapper">
 
-    <div class="login-container">
-        <div id="header-wrapper">
-            <h1>Login</h1>
-            <div id="error"></div>
-        </div>
-        <input id="username" type="text" autocomplete="off" placeholder="Username..."> 
-        <input id="password" type="password" autocomplete="off" placeholder="Password...">
-        <div id="register-wrapper">
-            <button id="register">Register</button>
-        </div>
-        <button id="submit">Submit</button>
     </div>
 </body>
 </html>

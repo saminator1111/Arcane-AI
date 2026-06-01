@@ -1,3 +1,5 @@
+const BASE_URL = "https://api.arcanai.uk"
+
 class main {
     constructor() {
         this.profilePageWrapper = document.getElementById('profile-page-wrapper');
@@ -51,7 +53,38 @@ class main {
         this.achievementsTrophyIcon = document.getElementById('achievements-trophy-icon');
         this.achievementsContainer = document.getElementById('achievements-container');
 
+        this.tabs = document.querySelectorAll('.tab');
+
+        this.profileId = new URLSearchParams(window.location.search).get('id');
+        
+        if (!this.profileId) {
+            console.error("Missing profile id in URL");
+            return;
+        }
+
         this.bindEvents();
+        this.loadProfile();
+    }
+
+    loadProfile() {
+        const endpoint = `${BASE_URL}/accounts/${encodeURIComponent(this.profileId)}`;
+
+        fetch(endpoint)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Network error: ${res.status} ${res.statusText}`);
+                }
+                return res.json();
+            })
+            .then((data) => {
+                if (!data || data.ok !== true || !data.account) {
+                    throw new Error(data?.message || 'Unable to load profile data');
+                }
+                this.populateProfile(data.account);
+            })
+            .catch((err) => {
+                console.error('Failed to load profile:', err);
+            });
     }
 
     bindEvents() {
@@ -79,11 +112,40 @@ class main {
         tabs.forEach((tab) => {
             if (!tab) return;
             tab.classList.toggle('active', tab.id === tabId);
+            tab.setAttribute('aria-selected', tab.id === tabId ? 'true' : 'false');
         });
 
         if (this.topSectionTitle) {
             this.topSectionTitle.textContent =
                 tabId === 'bots' ? 'My Bots' : tabId === 'favorites' ? 'Favorites' : 'Activity';
+        }
+    }
+
+    populateProfile(account) {
+        if (!account) {
+            console.error('populateProfile called with no account data');
+            return;
+        }
+
+        this.profileUsername.textContent = account.username || 'Unknown user';
+        this.profileBadge.textContent = account.badge || '';
+        this.profileDescription.textContent = account.bio || 'No bio available.';
+        this.joinDateValue.textContent = account.joinDate || 'Unknown';
+        this.profileImg.src = account.profilePhoto || '/pages/stylesheets/assets/blankpfp.jpg';
+
+        const stats = {
+            numofBots: account.numofBots ?? 0,
+            numofFollowers: account.numofFollowers ?? 0,
+            numofFollowing: account.numofFollowing ?? 0,
+            totalChats: account.totalChats ?? 0,
+        };
+
+        const statValues = this.profileStats?.querySelectorAll('.stat-row .stat-value');
+        if (statValues && statValues.length >= 4) {
+            statValues[0].textContent = stats.numofBots;
+            statValues[1].textContent = stats.numofFollowers;
+            statValues[2].textContent = stats.numofFollowing;
+            statValues[3].textContent = stats.totalChats;
         }
     }
 }

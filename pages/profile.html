@@ -22,7 +22,7 @@
                     </a>
                 </div>
                 <div id="profile-tag-container">
-                    <h2 id="profile-username">Username</h2>
+                    <h2 id="profile-username"><span>@</span>Username</h2>
                     <span id="profile-badge">Badge</span>
                 </div>
                 <div id="profile-bio-container">
@@ -66,11 +66,11 @@
 
             <section id="profile-center">
                 <div id="center-panel">
-                    <div id="profile-tabs-wrapper">
-                        <button class="tab" id="bots">Bots</button>
-                        <button class="tab" id="favorites">Favorites</button>
-                        <button class="tab" id="activity">Activity</button>
-                    </div>
+                    <nav id="profile-tabs-wrapper" role="tablist" aria-label="Profile tabs">
+                        <button class="tab active" id="bots" role="tab" aria-selected="true">Bots</button>
+                        <button class="tab" id="favorites" role="tab" aria-selected="false">Favorites</button>
+                        <button class="tab" id="activity" role="tab" aria-selected="false">Activity</button>
+                    </nav>
 
                     <div id="center-wrapper">
                         <div id="top-section">

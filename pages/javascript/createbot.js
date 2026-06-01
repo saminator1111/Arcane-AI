@@ -134,7 +134,7 @@ CSS cleanup:
 [ ] Confirm nav spacing with createbot form
 */
 
-const BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
+const BASE_URL = "https://api.arcanai.uk"
 
 
 class main {

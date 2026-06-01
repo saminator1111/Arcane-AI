@@ -1,4 +1,4 @@
-const GLOBAL_BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
+const GLOBAL_BASE_URL = "https://api.arcanai.uk"
 
 const adminProfiles = ["571bd9ed-ec70-4a0e-8838-0f5657c42e9c"]
 
@@ -62,7 +62,7 @@ function buildNav(profileMenu) {
         const el = document.createElement("a")
         el.classList.add("profile-item")
         el.textContent = "Login / Sign Up"
-        el.href = "/index.html"
+        el.href = "/pages/login.html"
 
         profileMenu.appendChild(el)
         return

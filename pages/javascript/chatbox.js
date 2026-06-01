@@ -46,7 +46,7 @@ JS:
 */
 
 
-const BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
+const BASE_URL = "https://api.arcanai.uk"
 
 class chatbox {
     constructor() {

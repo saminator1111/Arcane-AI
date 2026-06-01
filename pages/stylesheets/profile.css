@@ -251,3 +251,92 @@ button {
 #dropdown-content.show {
     display: flex;
 }
+
+/* Tabs: top-aligned header style */
+#profile-tabs-wrapper {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tab {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+
+    height: 56px;
+    padding: 0 16px;
+
+    background: transparent;
+    border: none;
+    color: rgb(163, 156, 191);
+
+    font-size: 1rem;
+    font-weight: 700;
+    position: relative;
+    transition: color 0.18s ease, background 0.18s ease;
+}
+
+.tab:hover {
+    color: rgb(242, 238, 255);
+    background: rgba(111, 92, 255, 0.06);
+}
+
+.tab::after {
+    content: "";
+    position: absolute;
+    left: 18%;
+    bottom: 0;
+    width: 64%;
+    height: 2px;
+    background: #6f5cff;
+    border-radius: 999px;
+    transform: scaleX(0);
+    transition: transform 0.18s ease;
+}
+
+.tab.active {
+    color: rgb(242, 238, 255);
+}
+
+.tab.active::after {
+    transform: scaleX(1);
+}
+
+#top-section-title {
+    font-size: 28px;
+    font-weight: 700;
+
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+}
+
+#top-section {
+    border-bottom: 2px solid #6f5cff;
+}
+
+#bot-grid {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+
+    height: 75%;
+    width: 100%;
+
+    border-bottom: 2px solid #6f5cff;
+}
+
+#load-more-button {
+    margin: 20px auto;
+    display: block;
+    padding: 10px 20px;
+
+    background: rgb(16, 19, 27);
+    border: 1px solid rgba(139, 98, 255, 0.18);
+    border-radius: 12px;
+    color: rgb(242, 238, 255);
+    font-weight: 600;
+}

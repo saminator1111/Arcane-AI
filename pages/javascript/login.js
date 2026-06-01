@@ -1,4 +1,4 @@
-const BASE_URL = "https://clinton-indicate-kept-nottingham.trycloudflare.com"
+const BASE_URL = "https://api.arcanai.uk"
 
 class Login {
     constructor() {
@@ -62,13 +62,13 @@ class Login {
                 }
                 localStorage.setItem("user", JSON.stringify(user))
 
-                window.location.href = "pages/home.html"
+                window.location.href = "/index.html"
                 return
             }
 
             this.showError("Username or password is incorrect...")
         } catch (error) {
-            this.showError("Could not log in. Make sure the server is running.")
+            this.showError("Could not log in. There may be a problem with the server or your network connection.")
             console.error(error)
         } finally {
             this.setLoading(false)
