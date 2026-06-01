@@ -62,8 +62,113 @@ class main {
             return;
         }
 
+        this.botsTab.addEventListener('click', () => {
+            this.loadBotsForProfile(this.profileId);
+        });
+
         this.bindEvents();
         this.loadProfile();
+    }
+
+    loadBotsForProfile(profileId) {
+        const endpoint = `${BASE_URL}/bots`;
+
+        fetch(endpoint)
+            .then(res => res.json())
+            .then(data => {
+                console.log("Bots for profile:", data);
+                this.profileData = (data.bots || []).filter(bot => bot.account_id === profileId);
+                this.renderProfileBots(this.profileData);
+            })
+            .catch(err => {
+                console.error("Failed to load bots for profile:", err);
+            })
+    }
+
+    renderProfileBots(bots) {
+        this.botGrid.innerHTML = "";
+
+        if (!bots || bots.length === 0) {
+            this.botGrid.textContent = "No bots found.";
+            return;
+        }
+
+        bots.forEach(bot => {
+            const botLink = document.createElement("a")
+            botLink.href = `bot.html?id=${bot.id}`
+            botLink.classList.add("bot-link")
+
+            const botCard = document.createElement("div")
+            botCard.classList.add("bot-card")
+
+            botLink.appendChild(botCard)
+
+            const title_wrapper = document.createElement("div")
+            title_wrapper.classList.add("title-wrapper")
+
+            const title = document.createElement("strong")
+            title.textContent = bot.name
+            title_wrapper.appendChild(title)
+
+            botCard.appendChild(title_wrapper)
+
+            if (!bot.image) {
+                const image = document.createElement("img")
+                image.classList.add("bot-image")
+                image.src = "/pages/stylesheets/assets/blankpfp.jpg"
+                botCard.appendChild(image)
+            } else {
+                const image = document.createElement("img")
+                image.classList.add("bot-image")
+                image.src = bot.image
+                botCard.appendChild(image)
+            }
+
+            const username_wrapper = document.createElement("div")
+            username_wrapper.classList.add("username-wrapper")
+
+            const username = document.createElement("a")
+
+            username.href = `profile.html?id=${bot.account_id}`
+
+            username.textContent = `@${bot.username}`
+            username_wrapper.appendChild(username)
+
+            botCard.appendChild(username_wrapper)
+
+
+            const bot_tags = document.createElement("div")
+            bot_tags.classList.add("card-tags")
+
+            const tags = bot.tags
+
+            if (!tags || tags.length === 0) {
+                const tag_item = document.createElement("span")
+                tag_item.textContent = "notags"
+                tag_item.classList.add("tag")
+                bot_tags.appendChild(tag_item)
+            } else {
+                tags.forEach(tag => {
+                    const tag_item = document.createElement("span")
+                    tag_item.textContent = tag
+                    tag_item.classList.add("tag")
+                    bot_tags.appendChild(tag_item)
+                })
+            }
+
+            botCard.appendChild(bot_tags)
+
+            const desc_wrapper = document.createElement("div")
+            desc_wrapper.classList.add("desc-wrapper")
+
+            const desc = document.createElement("p")
+            desc.textContent = bot.description || "No description"
+            desc_wrapper.appendChild(desc)
+
+            botCard.appendChild(desc_wrapper)
+
+            this.botGrid.appendChild(botLink)
+        })
     }
 
     loadProfile() {

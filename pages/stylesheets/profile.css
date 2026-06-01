@@ -319,11 +319,11 @@ button {
 }
 
 #bot-grid {
-    display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 
-    height: 75%;
+    height: 65%;
     width: 100%;
 
     border-bottom: 2px solid #6f5cff;
@@ -332,11 +332,102 @@ button {
 #load-more-button {
     margin: 20px auto;
     display: block;
+    width: 100%;
+    height: 68px;
     padding: 10px 20px;
 
     background: rgb(16, 19, 27);
     border: 1px solid rgba(139, 98, 255, 0.18);
     border-radius: 12px;
     color: rgb(242, 238, 255);
+    font-weight: 900;
+}
+
+.bot-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.bot-card:hover {
+    transform: translateY(-4px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 14px 36px rgba(0,0,0,0.7),
+        0 0 0 2px rgba(155,135,245,0.25),
+        inset 1px 1px 3px rgba(255,255,255,0.07);
+}
+
+.bot-card {
+    width: 220px;
+    height: 440px;
+    margin: 20px auto;
+
+    border-radius: 14px;
+    overflow: hidden;
+
+    background: linear-gradient(160deg, #2d1452, #1b1f3a);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.title-wrapper {
+    padding: 8px;
+    text-align: center;
+    font-size: 20px;
     font-weight: 600;
+    letter-spacing: 0.3px;
+
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.bot-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.username-wrapper {
+    margin: 8px;
+    font-size: 14px;
+}
+
+.desc-wrapper {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    line-height: 1.4em;
+    height: calc(2.4em * 3);
+    overflow: hidden;
+}
+
+.desc-wrapper,
+.tag {
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #ccc;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    margin: 3px;
+
+    background: #2b2e34;
+    color: #9b87f5;
+
+    border-radius: 999px;
+    font-size: 12px;
+
+    border: 1px solid #3a3d44;
 }
