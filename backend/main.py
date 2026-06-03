@@ -85,7 +85,8 @@ def ensure_accounts_table():
             numofFollowers INTEGER DEFAULT 0,
             numofFollowing INTEGER DEFAULT 0,
             totalChats INTEGER DEFAULT 0,
-            blockedUsers TEXT DEFAULT '[]'
+            blockedUsers TEXT DEFAULT '[]',
+            favoriteBots TEXT DEFAULT '[]'
         )
     """)
 
@@ -100,7 +101,8 @@ def ensure_accounts_table():
         "numofFollowers": "INTEGER DEFAULT 0",
         "numofFollowing": "INTEGER DEFAULT 0",
         "totalChats": "INTEGER DEFAULT 0",
-        "blockedUsers": "TEXT DEFAULT '[]'"
+        "blockedUsers": "TEXT DEFAULT '[]'",
+        "favoriteBots": "TEXT DEFAULT '[]'"
     }
 
     for column_name, column_type in needed_columns.items():
@@ -135,7 +137,11 @@ def ensure_bots_table():
             frequencyPenalty REAL,
             presencePenalty REAL,
             contextMessages REAL,
-            image TEXT
+            image TEXT,
+            favoriteCount INTEGER DEFAULT 0,
+            totalChats INTEGER DEFAULT 0,
+            totalMessages INTEGER DEFAULT 0,
+            approved BOOLEAN DEFAULT 0
         )
     """)
 
@@ -160,7 +166,11 @@ def ensure_bots_table():
         "frequencyPenalty": "REAL",
         "presencePenalty": "REAL",
         "contextMessages": "REAL",
-        "image": "TEXT"
+        "image": "TEXT",
+        "favoriteCount": "INTEGER DEFAULT 0",
+        "totalChats": "INTEGER DEFAULT 0",
+        "totalMessages": "INTEGER DEFAULT 0",
+        "approved": "BOOLEAN"
     }
 
     for column_name, column_type in needed_columns.items():
@@ -220,7 +230,8 @@ def account_row_to_dict(row):
         "numofFollowers": row["numofFollowers"],
         "numofFollowing": row["numofFollowing"],
         "totalChats": row["totalChats"],
-        "blockedUsers": row["blockedUsers"]
+        "blockedUsers": row["blockedUsers"],
+        "favoriteBots": row["favoriteBots"]
     }
 
 def bot_row_to_dict(row):
@@ -243,7 +254,11 @@ def bot_row_to_dict(row):
         "frequencyPenalty": row["frequencyPenalty"],
         "presencePenalty": row["presencePenalty"],
         "contextMessages": row["contextMessages"],
-        "image": row["image"]
+        "image": row["image"],
+        "favoriteCount": row["favoriteCount"],
+        "totalChats": row["totalChats"],
+        "totalMessages": row["totalMessages"],
+        "approved": bool(row["approved"])
     }
 
 
@@ -356,7 +371,8 @@ def get_account(account_id: str):
         numofFollowers,
         numofFollowing,
         totalChats,
-        blockedUsers
+        blockedUsers,
+        favoriteBots
         FROM accounts
                    
         WHERE account_id = ?
@@ -403,7 +419,11 @@ def get_bot(bot_id: int):
             frequencyPenalty,
             presencePenalty,
             contextMessages,
-            image
+            image,
+            favoriteCount,
+            totalChats,
+            totalMessages,
+            approved
         FROM bots
         WHERE id = ?
     """, (bot_id,))
