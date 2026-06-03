@@ -135,7 +135,11 @@ def ensure_bots_table():
             frequencyPenalty REAL,
             presencePenalty REAL,
             contextMessages REAL,
-            image TEXT
+            image TEXT,
+            totalChats INTEGER DEFAULT 0,
+            totalMessages INTEGER DEFAULT 0,
+            favoriteCount INTEGER DEFAULT 0,
+            status BOOLEAN DEFAULT false,
         )
     """)
 
@@ -160,7 +164,11 @@ def ensure_bots_table():
         "frequencyPenalty": "REAL",
         "presencePenalty": "REAL",
         "contextMessages": "REAL",
-        "image": "TEXT"
+        "image": "TEXT",
+        "totalChats": "REAL",
+        "totalMessages": "REAL",
+        "favoriteCount": "REAL",
+        "status": "REAL"
     }
 
     for column_name, column_type in needed_columns.items():
