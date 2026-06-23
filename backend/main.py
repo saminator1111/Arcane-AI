@@ -85,7 +85,8 @@ def ensure_accounts_table():
             numofFollowers INTEGER DEFAULT 0,
             numofFollowing INTEGER DEFAULT 0,
             totalChats INTEGER DEFAULT 0,
-            blockedUsers TEXT DEFAULT '[]'
+            blockedUsers TEXT DEFAULT '[]',
+            favoriteBots TEXT DEFAULT '[]'
         )
     """)
 
@@ -100,7 +101,8 @@ def ensure_accounts_table():
         "numofFollowers": "INTEGER DEFAULT 0",
         "numofFollowing": "INTEGER DEFAULT 0",
         "totalChats": "INTEGER DEFAULT 0",
-        "blockedUsers": "TEXT DEFAULT '[]'"
+        "blockedUsers": "TEXT DEFAULT '[]'",
+        "favoriteBots": "TEXT DEFAULT '[]'"
     }
 
     for column_name, column_type in needed_columns.items():
@@ -110,6 +112,41 @@ def ensure_accounts_table():
     conn.commit()
     conn.close()
 
+
+def ensure_bot_alert_table():
+    conn = get_connection(DB_BOTS)
+    cursor = conn.cursor
+
+    cursor.execute(""" 
+    CREATE TABLE IF NOT EXISTS bot_alerts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        bot_id TEXT,
+        alert_type TEXT,
+        alert_level TEXT,
+        alert_message TEXT,
+        author_id TEXT,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    cursor.execute("PRAGMA table_info(bot_alerts)")
+    columns = {column["name"] for column in cursor.fetchall()}
+
+    needed_columns = {
+        "bot_id": "TEXT",
+        "alert_type": "TEXT",
+        "alert_level": "TEXT",
+        "alert_message": "TEXT",
+        "author_id": "TEXT",
+        "timestamp": "DATETIME"
+    }
+
+    for column_name, column_type in needed_columns.items():
+        if column_name not in columns:
+            cursor.execute(f"ALTER TABLE bot_alerts ADD COLUMN {column_name} {column_type}")
+
+    conn.commit()
+    conn.close()
 
 def ensure_bots_table():
     conn = get_connection(DB_BOTS)
@@ -136,10 +173,11 @@ def ensure_bots_table():
             presencePenalty REAL,
             contextMessages REAL,
             image TEXT,
+            favoriteCount INTEGER DEFAULT 0,
             totalChats INTEGER DEFAULT 0,
             totalMessages INTEGER DEFAULT 0,
-            favoriteCount INTEGER DEFAULT 0,
-            status BOOLEAN DEFAULT false,
+            approved BOOLEAN DEFAULT FALSE,
+            denied BOOLEAN DEFAULT FALSE,
         )
     """)
 
@@ -165,10 +203,11 @@ def ensure_bots_table():
         "presencePenalty": "REAL",
         "contextMessages": "REAL",
         "image": "TEXT",
-        "totalChats": "REAL",
-        "totalMessages": "REAL",
-        "favoriteCount": "REAL",
-        "status": "REAL"
+        "favoriteCount": "INTEGER DEFAULT 0",
+        "totalChats": "INTEGER DEFAULT 0",
+        "totalMessages": "INTEGER DEFAULT 0",
+        "approved": "BOOLEAN DEFAULT FALSE",
+        "denied": "BOOLEAN DEFAULT FALSE",
     }
 
     for column_name, column_type in needed_columns.items():
@@ -228,7 +267,8 @@ def account_row_to_dict(row):
         "numofFollowers": row["numofFollowers"],
         "numofFollowing": row["numofFollowing"],
         "totalChats": row["totalChats"],
-        "blockedUsers": row["blockedUsers"]
+        "blockedUsers": row["blockedUsers"],
+        "favoriteBots": row["favoriteBots"]
     }
 
 def bot_row_to_dict(row):
@@ -251,7 +291,23 @@ def bot_row_to_dict(row):
         "frequencyPenalty": row["frequencyPenalty"],
         "presencePenalty": row["presencePenalty"],
         "contextMessages": row["contextMessages"],
-        "image": row["image"]
+        "image": row["image"],
+        "favoriteCount": row["favoriteCount"],
+        "totalChats": row["totalChats"],
+        "totalMessages": row["totalMessages"],
+        "approved": bool(row["approved"]),
+        "denied": bool(row["denied"]),
+    }
+
+def bot_alert_row_to_dict(row):
+    return {
+        "id": row["id"],
+        "bot_id": row["bot_id"],
+        "alert_type": row["alert_type"],
+        "alert_level": row["alert_level"],
+        "alert_message": row["alert_message"],
+        "author_id": row["author_id"],
+        "timestamp": row["timestamp"]
     }
 
 
@@ -364,7 +420,8 @@ def get_account(account_id: str):
         numofFollowers,
         numofFollowing,
         totalChats,
-        blockedUsers
+        blockedUsers,
+        favoriteBots
         FROM accounts
                    
         WHERE account_id = ?
@@ -383,6 +440,8 @@ def get_account(account_id: str):
         "ok": True,
         "account": account_row_to_dict(user)
     }
+
+@app.get("/")
 
 @app.get("/bot/{bot_id}")
 def get_bot(bot_id: int):
@@ -411,7 +470,12 @@ def get_bot(bot_id: int):
             frequencyPenalty,
             presencePenalty,
             contextMessages,
-            image
+            image,
+            favoriteCount,
+            totalChats,
+            totalMessages,
+            approved,
+            denied
         FROM bots
         WHERE id = ?
     """, (bot_id,))
@@ -452,7 +516,10 @@ async def submit(
     contextMessages: Optional[float] = Form(None),
 
     tags: str = Form("[]"),
-    image: Optional[UploadFile] = File(None)
+    image: Optional[UploadFile] = File(None),
+
+    approved: Optional[bool] = Form(False),
+    denied: Optional[bool] = Form(False)
 ):
     ensure_bots_table()
 
@@ -490,9 +557,11 @@ async def submit(
             frequencyPenalty,
             presencePenalty,
             contextMessages,
-            image
+            image,
+            approved,
+            denied
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         account_id,
         name,
@@ -511,7 +580,9 @@ async def submit(
         frequencyPenalty,
         presencePenalty,
         contextMessages,
-        image_src
+        image_src,
+        approved,
+        denied
     ))
 
     bot_id = cursor.lastrowid

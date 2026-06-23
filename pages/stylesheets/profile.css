@@ -327,6 +327,8 @@ button {
     width: 100%;
 
     border-bottom: 2px solid #6f5cff;
+
+    align-items: center;
 }
 
 #load-more-button {
@@ -430,4 +432,15 @@ button {
     font-size: 12px;
 
     border: 1px solid #3a3d44;
+}
+
+.unverified-badge {
+    background: #4a2e2e;
+    color: #f56262;
+    border: 1px solid #5c3a3a;
+
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+    display: inline-block;
 }

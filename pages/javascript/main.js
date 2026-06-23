@@ -80,7 +80,7 @@ class main {
 
             const username = document.createElement("a")
 
-            username.href = `profile.html?id=${bot.account_id}`
+            username.href = `pages/profile.html?id=${bot.account_id}`
 
             username.textContent = `@${bot.username}`
             username_wrapper.appendChild(username)

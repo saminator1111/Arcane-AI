@@ -1,0 +1,202 @@
+/* Form shell */
+#application-form {
+    width: min(900px, 92vw);
+    margin: 32px auto;
+    padding: 24px;
+
+    background: linear-gradient(180deg, rgba(19, 22, 31, 0.98), rgba(14, 17, 25, 0.98));
+    border: 1px solid rgba(139, 98, 255, 0.22);
+    border-radius: 20px;
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+#form-header {
+    margin-bottom: 24px;
+}
+
+#form-header h1 {
+    margin: 0 0 10px 0;
+    color: rgb(242, 238, 255);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+#form-header p {
+    margin: 0;
+    color: rgb(163, 156, 191);
+    line-height: 1.5;
+}
+
+#form-input-reqs h2 {
+    color: rgb(242, 238, 255);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 22px 0 10px 0;
+}
+
+#req,
+#optional {
+    margin: 0 0 18px 20px;
+    padding: 0;
+    color: rgb(180, 173, 205);
+    line-height: 1.6;
+}
+
+#fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Labels */
+#fields label {
+    display: block;
+    margin-top: 8px;
+}
+
+#fields label h2 {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(242, 238, 255);
+}
+
+/* Inputs + textarea */
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+
+    background: rgb(16, 19, 27);
+    border: 1px solid rgba(139, 98, 255, 0.18);
+    border-radius: 14px;
+
+    color: rgb(242, 238, 255);
+    font-size: 0.98rem;
+    line-height: 1.4;
+
+    box-sizing: border-box;
+    outline: none;
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+.form-input::placeholder {
+    color: rgb(121, 116, 145);
+}
+
+.form-input:hover {
+    background: rgb(20, 23, 32);
+    border-color: rgba(165, 109, 255, 0.24);
+}
+
+.form-input:focus {
+    background: rgb(20, 23, 32);
+    border-color: rgba(165, 109, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(111, 92, 255, 0.14);
+}
+
+/* Textarea */
+textarea.form-input {
+    min-height: 130px;
+    resize: vertical;
+}
+
+/* Checkbox section */
+#check-box-row {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 14px 16px;
+    background: linear-gradient(180deg, rgba(19, 22, 31, 0.98), rgba(14, 17, 25, 0.98));
+    border: 1px solid rgba(139, 98, 255, 0.18);
+    border-radius: 14px;
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.checkbox-row:hover {
+    border-color: rgba(165, 109, 255, 0.28);
+    background: linear-gradient(180deg, rgba(22, 26, 36, 0.98), rgba(16, 19, 27, 0.98));
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    accent-color: #6f5cff;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.checkbox-row label {
+    color: rgb(210, 204, 230);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.checkbox-row a {
+    color: rgb(202, 175, 255);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.checkbox-row a:hover {
+    text-decoration: underline;
+}
+
+/* Submit button */
+#form-actions {
+    margin-top: 24px;
+}
+
+#submit-application-button {
+    width: 100%;
+    height: 52px;
+    padding: 0 18px;
+
+    background: linear-gradient(135deg, rgb(125, 76, 255), rgb(165, 109, 255));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+
+    box-shadow:
+        0 10px 24px rgba(76, 42, 158, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+    cursor: pointer;
+    transition:
+        transform 0.14s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+#submit-application-button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.04);
+    box-shadow:
+        0 14px 28px rgba(76, 42, 158, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+#submit-application-button:active {
+    transform: translateY(0);
+}

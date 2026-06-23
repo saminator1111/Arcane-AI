@@ -9,7 +9,7 @@ class Login {
         this.registerButton = document.getElementById("register")
 
         this.registerButton.addEventListener("click", () => {
-            window.location.href = "pages/register.html"
+            window.location.href = "register.html"
         })
 
         this.button.addEventListener("click", (event) => {this.login(event)})

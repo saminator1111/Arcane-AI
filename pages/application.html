@@ -3,13 +3,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="javascript/application.js" defer></script>
+    <script src="javascript/global.js" defer></script>
+    <link rel="stylesheet" href="stylesheets/login.css">
     <link rel="stylesheet" href="stylesheets/global.css">
     <link rel="stylesheet" href="stylesheets/application.css">
-    <title>Beta Application</title>
+    <title>Create Account</title>
 </head>
 <body>
-    
+
     <div id="navbar-container"></div>
+
+    <form action="submit" id="application-form">
+        <div id="form-header">
+            <h1>Create Your Account</h1>
+            <p>
+                Register to start chatting and buying tokens right away.
+                Bot creation and creator tools require approval after registration.
+            </p>
+        </div>
+
+        <div id="form-input-reqs">
+            <h2>Required Information</h2>
+
+            <ul id="req">
+                <li><b>Email</b> - needed for account verification and password recovery</li>
+                <li><b>Username</b> - the name other users will know you by</li>
+                <li><b>Password</b> - the key to your account, so do not forget it</li>
+                <li><b>Description</b> - tell us a little about yourself and how you plan to use the site</li>
+            </ul>
+
+            <h2>Optional Information</h2>
+            <ul id="optional">
+                <li><b>How you found us</b> - where you heard about the site</li>
+                <li><b>Referral</b> - an admin or creator referral for possible wallet bonuses</li>
+            </ul>
+
+            <div id="fields">
+                <label for="username-field">
+                    <h2>Username</h2>
+                </label>
+                <div id="username-wrapper"></div>
+                    <input type="text" class="form-input" id="username-field" placeholder="Enter username..." required>
+                </div>
+
+                <label for="password-field">
+                    <h2>Password</h2>
+                </label>
+                <input type="password" class="form-input" id="password-field" placeholder="Enter password..." required>
+
+                <label for="confirm-password-field">
+                    <h2>Confirm Password</h2>
+                </label>
+                <input type="password" class="form-input" id="confirm-password-field" placeholder="Confirm password..." required>
+
+                <div id="email-wrapper">
+                    <label for="email-field">
+                        <h2>Email</h2>
+                    </label>
+                    <input type="email" class="form-input" id="email-field" placeholder="something@example.com..." required>
+                </div>
+
+                <label for="description-field">
+                    <h2>Description</h2>
+                </label>
+                <textarea style="resize: none;" class="form-input" id="description-field" placeholder="Tell us about yourself and how you want to use Arcane AI..."></textarea>
+
+                <label for="found-us-field">
+                    <h2>How did you find us?</h2>
+                </label>
+                <input type="text" class="form-input" id="found-us-field" placeholder="Discord, friend, social media, etc...">
+
+                <label for="referral-field">
+                    <h2>Referral</h2>
+                </label>
+                <input type="text" inputmode="numeric" class="form-input" id="referral-field" placeholder="Enter referral if you have one...">
+            </div>
+
+            <div id="check-box-row">
+                <div class="checkbox-row">
+                    <input type="checkbox" id="tos-check" required>
+                    <label for="tos-check">
+                        By checking this box and using Arcane AI, you hereby agree to the
+                        <a href="terms.html">Terms of Service</a> and understand that any breach of these terms can result in suspension or a ban from Arcane AI.
+                    </label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="guidelines-check" required>
+                    <label for="guidelines-check">
+                        By checking this box and using Arcane AI, you hereby agree to the
+                        <a href="communityguidelines.html">Community Guidelines</a> and understand that abuse of these rules can result in suspension or a ban, and any illegal activity may be reported to law enforcement.
+                    </label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="age-check" required>
+                    <label for="age-check">
+                        By checking this box and using Arcane AI, you confirm that you are at least 18 years old, or the legal age of consent in your country or region, and understand that underage users will be banned from the platform.
+                    </label>
+                </div>
+            </div>
+
+            <div id="form-actions">
+                <button type="submit" id="submit-application-button">Create Account</button>
+            </div>
+        </div>
+    </form>
 
 </body>
 </html>
