@@ -1,5 +1,5 @@
 /* Form shell */
-#application-form {
+form {
     width: min(900px, 92vw);
     margin: 32px auto;
     padding: 24px;
