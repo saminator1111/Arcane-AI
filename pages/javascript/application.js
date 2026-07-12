@@ -29,7 +29,8 @@ class Application {
         this.submitButton = document.getElementById("submit-application-button");
 
         // Calling for local data
-        this.user = JSON.parse(localStorage.getItem("user"))?.id;
+        const savedUser = JSON.parse(localStorage.getItem("user"));
+        this.user = savedUser?.account_id || savedUser?.id || localStorage.getItem("account_id");
 
         // Field data storage
         this.usernamesData = [];
@@ -54,6 +55,11 @@ class Application {
 
         this.emailField?.addEventListener("input", () => {
             this.validateEmail();
+        });
+
+        this.applicationForm?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            this.submitApplication();
         });
 
         if (this.user != null) {
@@ -97,6 +103,7 @@ class Application {
         if (!this.emailField || !this.emailWrapper) {
             return;
         }
+
         const currentEmail = this.emailField.value.trim().toLowerCase();
         const validEmailPattern = /^[^ \t@]+@[^ \t@]+\.(com|gov|edu|org|net)$/i;
         const hasValidShape = validEmailPattern.test(currentEmail);
@@ -113,7 +120,6 @@ class Application {
             return;
         }
 
-        // Run duplicate check using current emails data
         this.error(
             this.emailWrapper,
             "This email is already in use, please change it, or login.",
@@ -182,6 +188,7 @@ class Application {
         }
 
         let errData = err.querySelector(".err-data");
+
         if (!errData) {
             errData = document.createElement("span");
             errData.classList.add("err-data");
@@ -197,6 +204,58 @@ class Application {
         if (err) {
             err.remove();
         }
+    }
+
+    submitApplication() {
+        if (document.querySelector(".err-wrap")) {
+            alert("I'm sorry, but you cannot submit the application due to errors in the forms. Please fix the errors and try again.");
+            return;
+        }
+
+        if (!this.tosCheck.checked || !this.guidelinesCheck.checked || !this.ageCheck.checked) {
+            alert("I'm sorry, but you cannot submit the application without agreeing to the Terms of Service, Guidelines, and confirming that you are over 18 years old.");
+            return;
+        }
+
+        const profileDate = new Date().toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+
+        const form = new FormData();
+
+        form.append("username", this.usernameField.value.trim());
+        form.append("email", this.emailField.value.trim());
+        form.append("password", this.passwordField.value.trim());
+        form.append("description", this.descriptionField.value.trim());
+        form.append("profile_date", profileDate);
+
+        if (this.foundUsField.value.trim()) {
+            form.append("found_us", this.foundUsField.value.trim());
+        }
+
+        if (this.referralField.value.trim()) {
+            form.append("referral", this.referralField.value.trim());
+        }
+
+        fetch(`${BASE_URL}/account_submit`, {
+            method: "POST",
+            body: form
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Your application has been submitted successfully! You can now log in.");
+                    window.location.href = "login.html";
+                } else {
+                    alert(`Error submitting application: ${data.message || "Unknown error"}`);
+                }
+            })
+            .catch(err => {
+                console.error("Failed to submit application:", err);
+                alert("Something went wrong while submitting your application.");
+            });
     }
 }
 

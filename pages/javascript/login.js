@@ -54,16 +54,20 @@ class Login {
                 throw new Error(data.detail || "Login request failed.")
             }
 
-            if (data.ok && data.account_id) {
+            if (data.ok && data.account) {
                 const user = {
-                    id: data.account_id,
-                    username: data.username,
-                    email: data.email
-                }
-                localStorage.setItem("user", JSON.stringify(user))
+                    id: data.account.account_id,
+                    account_id: data.account.account_id,
+                    username: data.account.username,
+                    email: data.account.email,
+                    role: data.account.role
+                };
 
-                window.location.href = "/index.html"
-                return
+                localStorage.setItem("user", JSON.stringify(user));
+                localStorage.setItem("account_id", data.account.account_id);
+
+                window.location.href = "/index.html";
+                return;
             }
 
             this.showError("Username or password is incorrect...")
