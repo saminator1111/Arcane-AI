@@ -3,13 +3,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <title>Document</title>
+    <script src="javascript/global.js" defer></script>
+    <link rel="stylesheet" href="stylesheets/global.css">
+    <title>Bot</title>
 </head>
 <body>
     
     <div id="navbar-container"></div>
 
-    
+    <div id="main-content">
+        <div id="top-content">
+            <div id="top-content-left">
+                <img src="../assets/images/bot.png" alt="Bot Image" id="bot-image">
+            </div>
+                <div id="top-content-right">
+                    <h1 id="bot-name">Name</h1>
 
+                    <span id="author-text">Created by <a href="" id="author-link"></a></span>
+
+                    <div id="bot-tags"></div>
+
+                    <div id="bot-description-page">
+                        <p id="description-text"></p>
+                    </div>
+                </div>
+                <div id="top-content-bottom">
+                    <button id="start-chat-button">Start Chat</button>
+                    <button id="personas-button">Personas</button>
+
+                    <span id="current-persona-name"></span>
+                </div>
+            </div>
+        </div>
+    
+        <div id="middle-content">
+            <div id="middle-content-left">
+                <div id="about-bot">
+                    <div id="personality">
+                        <h2>Personality</h2>
+                        <p id="personality-text"></p>
+                    </div>
+                </div>
+                <div id="bot-scenario">
+                    <h2>Scenario</h2>
+                    <p id="scenario-text"></p>
+                </div>
+                <div id="bot-first-message">
+                    <h2>First Message</h2>
+                    <p id="first-message-text"></p>
+                </div>
+                <div id="bot-example-dialogue">
+                    <h2>Example Dialogue</h2>
+                    <div id="example-dialogue-content"></div>
+                </div>
+            </div>
+            <div id="middle-content-right">
+                <div id="published-chats"></div>
+            </div>  
+    </div>
 </body>
 </html>

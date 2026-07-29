@@ -48,7 +48,8 @@ form p {
     z-index: 1000;
 }
 
-#profile-menu {
+#profile-menu,
+#notifications-dropdown {
 
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -63,8 +64,6 @@ form p {
     border: 1px solid rgba(168, 100, 255, 0.55);
     border-radius: 12px;
 
-    width: 160px;
-
     display: flex;
     flex-direction: column;
 
@@ -74,9 +73,19 @@ form p {
     right: 0;
     z-index: 1000;
 }
+#profile-menu {
+    width: 160px;
+}
+
+#notifications-dropdown {
+    width: 340px;
+    max-height: 420px;
+    overflow-y: auto;
+}
 
 /* hidden state */
-#profile-menu.hidden {
+#profile-menu.hidden,
+#notifications-dropdown.hidden {
     opacity: 0;
     transform: translateY(-8px) scale(0.96);
     pointer-events: none;
@@ -267,6 +276,7 @@ form p {
 
 #notifications-wrapper {
     transition: transform 0.18s ease;
+    position: relative;
 }
 
 #notifications-wrapper:hover {

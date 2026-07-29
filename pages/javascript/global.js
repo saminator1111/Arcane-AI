@@ -1,5 +1,4 @@
 const GLOBAL_BASE_URL = "https://api.arcanai.uk";
-import { lucide } from "lucide";
 
 const adminProfiles = ["571bd9ed-ec70-4a0e-8838-0f5657c42e9c"];
 
@@ -39,34 +38,43 @@ function setupNav() {
     const profileMenu = document.getElementById("profile-menu");
 
     const notificationsBtn = document.getElementById("notifications-btn");
-    const notificationsMenu = document.getElementById("notifications-menu");
+    const notificationsMenu = document.getElementById("notifications-dropdown");
 
-    if (!profileBtn || !profileMenu) {
-        console.error("Nav elements not found");
+    if (
+        !profileBtn ||
+        !profileMenu ||
+        !notificationsBtn ||
+        !notificationsMenu
+    ) {
+        console.error("One or more navbar elements were not found");
         return;
     }
 
-    profileBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
+    profileBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+
         profileMenu.classList.toggle("hidden");
+        notificationsMenu.classList.add("hidden");
+    });
+
+    notificationsBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        notificationsMenu.classList.toggle("hidden");
+        profileMenu.classList.add("hidden");
+    });
+
+    profileMenu.addEventListener("click", (event) => {
+        event.stopPropagation();
+    });
+
+    notificationsMenu.addEventListener("click", (event) => {
+        event.stopPropagation();
     });
 
     document.addEventListener("click", () => {
         profileMenu.classList.add("hidden");
-        notificationsBtn.classList.add("hidden");
-    });
-
-    profileMenu.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
-
-    notificationsBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        notificationsBtn.classList.toggle("hidden");
-    });
-
-    notificationsBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
+        notificationsMenu.classList.add("hidden");
     });
 
     buildNav(profileMenu);
